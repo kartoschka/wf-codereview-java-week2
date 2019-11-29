@@ -1,4 +1,4 @@
-public class DATA {
+class DATA {
     static String[] EXERCISE_NAMES = {
             "Push-ups", "Planks", "Squats", "Backward Kicks", "Leg Curls", "Sideward Back Stretches"
     };

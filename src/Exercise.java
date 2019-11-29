@@ -1,10 +1,10 @@
 public class Exercise {
-    public String name;
-    public String description;
-    public int duration;
-    public Position position; // floor, standing
+    String name;
+    private String description;
+    int duration;
+    Position position; // floor, standing
 
-    public Exercise(String name, String description, int duration, Position position) {
+    Exercise(String name, String description, int duration, Position position) {
         this.name = name;
         this.description = description;
         this.duration = duration;
