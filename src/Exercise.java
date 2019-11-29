@@ -2,9 +2,9 @@ public class Exercise {
     public String name;
     public String description;
     public int duration;
-    public String position; // floor, standing
+    public Position position; // floor, standing
 
-    public Exercise(String name, String description, int duration, String position) {
+    public Exercise(String name, String description, int duration, Position position) {
         this.name = name;
         this.description = description;
         this.duration = duration;
@@ -13,8 +13,8 @@ public class Exercise {
 
     public String toString() {
         return String.format(
-                "%s   DURATION: %d.\n--------------------------------------------------------\nDESCRIPTION: %s",
-                name, duration, description
+                "%-34sDURATION: %3d s.\n%s\nDESCRIPTION: %s",
+                name, duration, "-".repeat(50), description
         );
     }
 }

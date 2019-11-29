@@ -1,47 +1,50 @@
+import java.util.function.Function;
+
 public class Main {
-    private static String[] EXERCISE_NAMES = {
-            "Push-ups", "Planks", "Squats", "Backward Kicks", "Leg Curls", "Sideward Back Stretches"
-    };
-
-    private static String[] EXERCISE_DESCRIPTIONS = {
-            "Place your hands on the floor. Raise up onto your toes so that all of your body weight is on your hands and your feet. Bend your elbows and lower your chest down toward the floor. Then, push off the floor and extend them so that you return to starting position.",
-            "",
-            "",
-            "",
-            "",
-            ""
-    };
-
-    private static int[] EXERCISE_DURATIONS = {
-            0, 0, 0, 0, 0, 0
-    };
-
-    private static String[] EXERCISE_POSITIONS = {
-            "", "", "", "", "", ""
-    };
-
     public static void main(String[] args) {
         Exercise[] xs = build_exercise_objects();
+        printHeadline("print all exercise objects");
+        printAll(xs);
+
+        printHeadline("print only exercises on the floor");
+        printOnlyFloor(xs);
+
+        printHeadline("print only floor exercises over (not equal) 1 minute");
+        printOnlyFloorAndOver1min(xs);
+
+        printHeadline("generate interval workout sheet");
+        printIntervalWorkout(xs);
+    }
+
+    private static void printHeadline(String text) {
+        System.out.println();
+        System.out.println("     " + text.toUpperCase());
+        System.out.println();
+    }
+
+    private static void printIntervalWorkout(Exercise[] xs) {
+        Exercise[] exampleSubset = {xs[0], xs[2], xs[1]};
+        IntervalWorkout workout = new IntervalWorkout(exampleSubset, 30, 4);
+        System.out.println(workout.formatProtocol());
     }
 
     private static void printAll(Exercise[] xs) {
-        for (Exercise x : xs) {
-            System.out.println(xs);
-        }
+        printWithPredicate(xs, x -> true);
     }
 
     private static void printOnlyFloor(Exercise[] xs) {
-        for (Exercise x : xs) {
-            if (x.position == "floor") {
-                System.out.println(xs);
-            }
-        }
+        printWithPredicate(xs, x -> x.position == Position.FLOOR);
     }
 
     private static void printOnlyFloorAndOver1min(Exercise[] xs) {
+        printWithPredicate(xs, x -> x.position == Position.FLOOR && x.duration > 60);
+    }
+
+    private static void printWithPredicate(Exercise[] xs, Function<Exercise, Boolean> predicate) {
         for (Exercise x : xs) {
-            if (x.position == "floor" && x.duration > 60) {
-                System.out.println(xs);
+            if (predicate.apply(x)) {
+                System.out.println(x);
+                System.out.println();
             }
         }
     }
@@ -49,7 +52,7 @@ public class Main {
     private static Exercise[] build_exercise_objects() {
         Exercise[] xs = new Exercise[6];
         for (int i = 0; i < 6; i++) {
-            xs[i] = new Exercise(EXERCISE_NAMES[i], EXERCISE_DESCRIPTIONS[i], EXERCISE_DURATIONS[i], EXERCISE_POSITIONS[i]);
+            xs[i] = new Exercise(DATA.EXERCISE_NAMES[i], DATA.EXERCISE_DESCRIPTIONS[i], DATA.EXERCISE_DURATIONS[i], DATA.EXERCISE_POSITIONS[i]);
         }
         return xs;
     }
